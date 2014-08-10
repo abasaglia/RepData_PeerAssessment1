@@ -2,16 +2,53 @@
 
 
 ## Loading and preprocessing the data
+Data comes from a personal activity monitoring device.
+This device collects data at 5 minute intervals through out the day. The data
+consists of two months of data from an anonymous individual collected during
+the months of October and November, 2012 and include the number of steps
+taken in 5 minute intervals each day.
+The dataset is stored in a comma-separated-value (CSV) file and there are a
+total of 17,568 observations in this dataset.
 
+```{r}
+# unzip and load activity.zip dataset
+#Download and unzip files
+destFile = "activity.csv"
+if(!file.exists(destFile)) {
+    unzip("activity.zip", exdir=".")
+}
+activity <- read.csv (destFile)
 
+head (activity)
+```
+
+The variables included in this dataset are:
+
+* **steps:** Number of steps taking in a 5-minute interval (missing values are
+coded as NA)
+
+* **date:** The date on which the measurement was taken in YYYY-MM-DD
+format
+
+* **interval:** Identifier for the 5-minute interval in which measurement was
+taken
 
 ## What is mean total number of steps taken per day?
+```{r}
+stepsForDays <- aggregate(activity$steps, by=list(activity$date), FUN="sum")
+hist (stepsForDays$x, main = "Histogram of Steps For Days", xlab ="Steps For Days")
+m1 <- mean(stepsForDays$x,na.rm = TRUE)
+m2 <- median(stepsForDays$x,na.rm = TRUE)
+```
 
+**Mean** total number of steps taken per day:  `r as.integer(m1)` 
 
+**Median** total number of steps taken per day: `r as.integer(m2)` 
 
 ## What is the average daily activity pattern?
+```{r}
 
-
+```
 
 ## Imputing missing values
 
